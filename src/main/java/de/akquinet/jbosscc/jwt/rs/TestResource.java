@@ -1,10 +1,10 @@
 package de.akquinet.jbosscc.jwt.rs;
 
-import de.akquinet.jbosscc.jwt.user.User;
-import de.akquinet.jbosscc.jwt.user.UserService;
 import de.akquinet.jbosscc.jwt.auth.JwtManager;
 import de.akquinet.jbosscc.jwt.dto.LoginRequest;
 import de.akquinet.jbosscc.jwt.dto.LoginResponse;
+import de.akquinet.jbosscc.jwt.user.User;
+import de.akquinet.jbosscc.jwt.user.UserService;
 
 import javax.annotation.Resource;
 import javax.annotation.security.PermitAll;
@@ -22,6 +22,7 @@ import javax.ws.rs.core.Response;
 import java.util.logging.Logger;
 
 import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
+import static javax.ws.rs.core.Response.Status.UNAUTHORIZED;
 
 @Path( "test" )
 @Produces( APPLICATION_JSON )
@@ -51,7 +52,7 @@ public class TestResource {
             return Response.ok().entity( response ).build();
         } catch ( SecurityException e ) {
             LOG.warning( e.getMessage() );
-            return Response.noContent().status( Response.Status.UNAUTHORIZED ).build();
+            return Response.noContent().status( UNAUTHORIZED ).build();
         }
     }
 

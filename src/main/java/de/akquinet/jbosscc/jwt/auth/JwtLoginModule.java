@@ -110,56 +110,6 @@ public class JwtLoginModule implements LoginModule {
         return true;
     }
 
-
-//    @Override
-//    public boolean login() throws LoginException {
-//        loginOk = false;
-//
-//        String jwt = getJwt();
-//
-//        if ( jwt != null ) {
-//            try {
-//                LOG.info( "JWT provided" );
-//
-//                JwtManager jwtManager = lookupJwtManager();
-//
-//                // verify the received token
-//                Jws<Claims> jws = jwtManager.parseToken( jwt );
-//
-//                // now we can trust its information...
-//                String subject = jws.getBody().getSubject();
-//                identity = new SimplePrincipal( subject );
-//
-//                String role = (String) jws.getBody().get( "role" );
-//                group = new SimplePrincipal( role );
-//
-//                LOG.info( "JWT is valid, logging in user " + subject + " with role " + role );
-//
-//                loginOk = true;
-//
-//                return true;
-//            } catch ( SignatureException | MalformedJwtException
-//                    | UnsupportedJwtException | IllegalArgumentException e ) {
-//                throw new FailedLoginException( "Invalid security token provided" );
-//            } catch ( ExpiredJwtException e ) {
-//                throw new CredentialExpiredException( "The security token is expired" );
-//            }
-//        }
-//        return false;
-//    }
-
-//    @Override
-//    protected Principal getIdentity() {
-//        return identity;
-//    }
-
-//    @Override
-//    protected Group[] getRoleSets() throws LoginException {
-//        SimpleGroup roles = new SimpleGroup( "Roles" );
-//        roles.addMember( group );
-//        return new Group[]{roles};
-//    }
-
     private String getJwt() throws LoginException {
         NameCallback callback = new NameCallback( "prompt" );
         try {
@@ -170,16 +120,6 @@ public class JwtLoginModule implements LoginModule {
             LOG.log( Level.SEVERE, msg, e );
             throw new LoginException( msg );
         }
-//        } else if ( callbackHandler instanceof JBossCallbackHandler ) {
-//            try {
-//                SecurityAssociationCallback callback = new SecurityAssociationCallback();
-//                callbackHandler.handle( new Callback[]{callback} );
-//                Object credential = callback.getCredential();
-//                Principal principal = callback.getPrincipal();
-//                LOG.info( "credential=" + credential + ", principal=" + principal );
-//            } catch ( IOException | UnsupportedCallbackException e ) {
-//                e.printStackTrace();
-//            }
     }
 
     private JwtManager lookupJwtManager() {

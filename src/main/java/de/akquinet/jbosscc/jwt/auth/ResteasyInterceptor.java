@@ -34,7 +34,7 @@ public class ResteasyInterceptor implements PreProcessInterceptor {
         String jwt = getBearerToken( request );
 
         if ( jwt != null ) {
-            LOG.info( "JWT provided, logging in..." );
+            LOG.info( "JWT provided, try to log in..." );
             UsernamePasswordHandler callbackHandler = new UsernamePasswordHandler( jwt, "".toCharArray() );
             try {
                 LoginContext loginContext = new LoginContext( "jwt-security", callbackHandler );

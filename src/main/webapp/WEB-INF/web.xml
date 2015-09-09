@@ -5,11 +5,6 @@
         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
         id="mremma-rest" version="3.0">
 
-    <!--<context-param>-->
-        <!--<param-name>resteasy.role.based.security</param-name>-->
-        <!--<param-value>true</param-value>-->
-    <!--</context-param>-->
-
     <context-param>
         <param-name>resteasy.interceptor.before.precedence</param-name>
         <param-value>SECURITY : JWT_SECURITY</param-value>
