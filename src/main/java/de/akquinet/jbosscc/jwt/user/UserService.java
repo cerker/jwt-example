@@ -1,5 +1,7 @@
 package de.akquinet.jbosscc.jwt.user;
 
+import de.akquinet.jbosscc.jwt.auth.AuthenticationException;
+
 import javax.annotation.security.PermitAll;
 import javax.ejb.Stateless;
 import java.util.HashMap;
@@ -14,12 +16,12 @@ public class UserService {
         put( "admin", new User( "admin", "adminpw", UserRoles.ADMIN ) );
     }};
 
-    public User authenticate( final String username, final String password ) {
+    public User authenticate( final String username, final String password ) throws AuthenticationException {
         User user = USER_DB.get( username );
         if ( user != null && user.getPassword().equals( password ) ) {
             return user;
         }
-        throw new SecurityException( "Failed logging in user with name '" + username
-                                             + "': unknown username or wrong password" );
+        throw new AuthenticationException( "Failed logging in user with name '" + username
+                                                   + "': unknown username or wrong password" );
     }
 }

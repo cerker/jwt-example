@@ -1,5 +1,6 @@
 package de.akquinet.jbosscc.jwt.rs;
 
+import de.akquinet.jbosscc.jwt.auth.AuthenticationException;
 import de.akquinet.jbosscc.jwt.auth.JwtManager;
 import de.akquinet.jbosscc.jwt.dto.LoginRequest;
 import de.akquinet.jbosscc.jwt.dto.LoginResponse;
@@ -50,7 +51,7 @@ public class TestResource {
             String jwt = jwtManager.createToken( user.getName(), user.getRole() );
             LoginResponse response = new LoginResponse( user.getName(), user.getRole(), jwt );
             return Response.ok().entity( response ).build();
-        } catch ( SecurityException e ) {
+        } catch ( AuthenticationException e ) {
             LOG.warning( e.getMessage() );
             return Response.noContent().status( UNAUTHORIZED ).build();
         }
