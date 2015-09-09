@@ -1,0 +1,4 @@
+<jboss-web>
+    <context-root>rest</context-root>
+    <security-domain>jwt-security</security-domain>
+</jboss-web>

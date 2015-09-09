@@ -1,0 +1,6 @@
+/subsystem=security/security-domain=jwt-security:add(cache-type=default)
+/subsystem=security/security-domain=jwt-security/authentication=classic :add
+/subsystem=security/security-domain=jwt-security/authentication=classic/login-module=JwtLoginModule:add(code=de.akquinet.jbosscc.jwt.auth.JwtLoginModule,flag=required)
+/subsystem=security/security-domain=jwt-security/authentication=classic/login-module=ClientLoginModule:add(code=org.jboss.security.ClientLoginModule,flag=required)
+
+
