@@ -8,6 +8,7 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -20,33 +21,49 @@ public class JwtAuthenticationFilter implements Filter {
     private static final String AUTH_HEADER_KEY = "Authorization";
     private static final String AUTH_HEADER_VALUE_PREFIX = "Bearer "; // with trailing space to separate token
 
+    private static final int STATUS_CODE_UNAUTHORIZED = 401;
+
     @Override
     public void init( FilterConfig filterConfig ) throws ServletException {
         LOG.info( "JwtAuthenticationFilter initialized" );
     }
 
     @Override
-    public void doFilter( ServletRequest request,
-                          ServletResponse response,
-                          FilterChain chain ) throws IOException, ServletException {
+    public void doFilter( final ServletRequest servletRequest,
+                          final ServletResponse servletResponse,
+                          final FilterChain filterChain ) throws IOException, ServletException {
+        HttpServletRequest httpRequest = (HttpServletRequest) servletRequest;
+
+        boolean loggedIn = false;
         try {
-            String jwt = getBearerToken( (HttpServletRequest) request );
+
+            String jwt = getBearerToken( httpRequest );
+
             if ( jwt != null && !jwt.isEmpty() ) {
-                ( (HttpServletRequest) request ).login( jwt, "" );
+                httpRequest.login( jwt, "" );
+                loggedIn = true;
                 LOG.info( "Logged in using JWT" );
             } else {
                 LOG.info( "No JWT provided, go on unauthenticated" );
             }
+
+            filterChain.doFilter( servletRequest, servletResponse );
+
+            if ( loggedIn ) {
+                httpRequest.logout();
+                LOG.info( "Logged out" );
+            }
         } catch ( final Exception e ) {
-            LOG.log( Level.WARNING, "Failed getting security token and logging in", e );
-        } finally {
-            chain.doFilter( request, response );
+            LOG.log( Level.WARNING, "Failed logging in with security token", e );
+            HttpServletResponse httpResponse = (HttpServletResponse) servletResponse;
+            httpResponse.setContentLength( 0 );
+            httpResponse.setStatus( STATUS_CODE_UNAUTHORIZED );
         }
     }
 
     @Override
     public void destroy() {
-
+        LOG.info( "JwtAuthenticationFilter destroyed" );
     }
 
     /**
