@@ -37,18 +37,17 @@ public class JwtLoginModule implements LoginModule {
 
     private Subject subject;
     private CallbackHandler callbackHandler;
-    private Map<String, ?> sharedState;
-    private Map<String, ?> options;
 
     private Principal identity;
     private Principal group;
 
     @Override
-    public void initialize( Subject subject, CallbackHandler callbackHandler, Map<String, ?> sharedState, Map<String, ?> options ) {
+    public void initialize( final Subject subject,
+                            final CallbackHandler callbackHandler,
+                            final Map<String, ?> sharedState,
+                            final Map<String, ?> options ) {
         this.subject = subject;
         this.callbackHandler = callbackHandler;
-        this.sharedState = sharedState;
-        this.options = options;
     }
 
     @Override
