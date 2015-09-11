@@ -13,10 +13,10 @@ import java.security.Principal;
 
 import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
 
-@Path( "testpojo" )
+@Path( "pojo" )
 @Produces( APPLICATION_JSON )
 @Consumes( APPLICATION_JSON )
-public class TestResourcePojo {
+public class ResourcePojo {
 
     @Context
     private SecurityContext securityContext;
@@ -44,7 +44,7 @@ public class TestResourcePojo {
 
     private String sayHello() {
         Principal userPrincipal = securityContext.getUserPrincipal();
-        String callerName = userPrincipal == null ? "Unknown" : userPrincipal.getName();
+        String callerName = userPrincipal == null ? "anonymous" : userPrincipal.getName();
         return "Hello " + callerName + "!";
     }
 }

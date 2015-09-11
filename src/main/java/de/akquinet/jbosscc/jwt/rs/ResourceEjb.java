@@ -25,13 +25,13 @@ import java.util.logging.Logger;
 import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
 import static javax.ws.rs.core.Response.Status.UNAUTHORIZED;
 
-@Path( "test" )
+@Path( "ejb" )
 @Produces( APPLICATION_JSON )
 @Consumes( APPLICATION_JSON )
 @Stateless
-public class TestResourceEjb {
+public class ResourceEjb {
 
-    private static final Logger LOG = Logger.getLogger( TestResourceEjb.class.getName() );
+    private static final Logger LOG = Logger.getLogger( ResourceEjb.class.getName() );
 
     @EJB
     private UserService userService;
