@@ -1,4 +1,4 @@
-package de.akquinet.jbosscc.jwt.auth;
+package de.akquinet.jbosscc.jwt.user;
 
 public class AuthenticationException extends Exception {
 

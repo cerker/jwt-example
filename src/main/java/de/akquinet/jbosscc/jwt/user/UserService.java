@@ -1,7 +1,5 @@
 package de.akquinet.jbosscc.jwt.user;
 
-import de.akquinet.jbosscc.jwt.auth.AuthenticationException;
-
 import javax.annotation.security.PermitAll;
 import javax.ejb.Stateless;
 import java.util.HashMap;

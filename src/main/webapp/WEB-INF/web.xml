@@ -6,8 +6,16 @@
         id="mremma-rest" version="3.0">
 
     <context-param>
-        <param-name>resteasy.interceptor.before.precedence</param-name>
-        <param-value>SECURITY : JWT_SECURITY</param-value>
+        <param-name>resteasy.role.based.security</param-name>
+        <param-value>true</param-value>
     </context-param>
+
+    <security-constraint>
+        <display-name>JwtSecurityConstraint</display-name>
+        <web-resource-collection>
+            <web-resource-name>all</web-resource-name>
+            <url-pattern>/*</url-pattern>
+        </web-resource-collection>
+    </security-constraint>
 
 </web-app>

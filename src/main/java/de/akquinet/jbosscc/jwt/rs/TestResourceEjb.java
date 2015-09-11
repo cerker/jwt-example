@@ -1,6 +1,6 @@
 package de.akquinet.jbosscc.jwt.rs;
 
-import de.akquinet.jbosscc.jwt.auth.AuthenticationException;
+import de.akquinet.jbosscc.jwt.user.AuthenticationException;
 import de.akquinet.jbosscc.jwt.auth.JwtManager;
 import de.akquinet.jbosscc.jwt.dto.LoginRequest;
 import de.akquinet.jbosscc.jwt.dto.LoginResponse;
@@ -29,9 +29,9 @@ import static javax.ws.rs.core.Response.Status.UNAUTHORIZED;
 @Produces( APPLICATION_JSON )
 @Consumes( APPLICATION_JSON )
 @Stateless
-public class TestResource {
+public class TestResourceEjb {
 
-    private static final Logger LOG = Logger.getLogger( TestResource.class.getName() );
+    private static final Logger LOG = Logger.getLogger( TestResourceEjb.class.getName() );
 
     @EJB
     private UserService userService;
